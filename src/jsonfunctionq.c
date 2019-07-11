@@ -6,6 +6,12 @@
 #include<stdbool.h>
 #include<stdio.h>
 
+bool json_check_key(Json*, const char*);
+
+JsonNode* json_search_node(Json* ,const char* );
+
+ArrayNode* arr_search_node(Array* ,int);
+
 //JsonNode* newNode = (JsonNode* )malloc(sizeof(JsonNode));
 //
 Json* json_new_obj(){
@@ -32,13 +38,9 @@ Array *json_new_arr(){
 bool json_add_obj(Json* Jsonlink, JsonNode* JNode){
     //check if the key exist
     if(Jsonlink == NULL){
-        return -1;
-    }
-    if(JNode == NULL){
-        return -2;
+
     }
     const char* key = JNode->key;
-    //is_key_exist
     if(json_check_key(Jsonlink,key)){
         //succeed
         // __
@@ -125,7 +127,6 @@ int json_get_int(Json* Jsonlink, const char* key){
         //key not in Json
         //printf("key %s not in current json %d\n",key,node);
         return INT_MAX;
-        //default value
     }
     return node->value.i;
 }
@@ -135,9 +136,7 @@ int json_get_bool(Json* Jsonlink, const char* key){
     if(!node){
         //key not in Json
         //printf("key %s not in current json %d\n",key,node);
-        //
-        //default value -> false
-        return false;
+        return -1;
     }
     return node->value.b;
 
@@ -148,7 +147,7 @@ const char* json_get_str(Json* Jsonlink,const char *key){
     if(!node){
         //key not in Json
         //printf("key %s not in current json %d\n",key,node);
-        return (void*)0;
+        return NULL;
     }
     return node->value.string;
 

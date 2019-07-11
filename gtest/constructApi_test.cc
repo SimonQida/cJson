@@ -30,6 +30,7 @@ TEST(json_add_objTest,Normal){
 	json_add_obj(basic, json_create_int("fd", -1));
 	json_add_obj(basic, json_create_str("maxcnt", "10000000000000000000000000000000000033333333333"));
 
+    /*
     EXPECT_EQ(0,json_check_key(root,"basic"));
     //EXPECT_EQ(0,json_check_key(root,"advance"));
     EXPECT_EQ(1,json_check_key(root,"ip"));
@@ -38,6 +39,7 @@ TEST(json_add_objTest,Normal){
     EXPECT_EQ(0,json_check_key(basic,"port"));
     EXPECT_EQ(0,json_check_key(basic,"timeout"));
     EXPECT_EQ(1,json_check_key(basic,"basic"));
+    */
     
 	Array* dns_arr = json_new_arr();
 	arr_add_obj(dns_arr, arr_create_str("200.200.0.1"));
@@ -45,6 +47,7 @@ TEST(json_add_objTest,Normal){
 	json_add_obj(basic, json_create_arr("dns", dns_arr));
 }
 
+/*
 TEST(json_check_keyTest,Normal){
     // find the key return 0
     // no such key return 1
@@ -58,6 +61,7 @@ TEST(json_check_keyTest,Normal){
     EXPECT_EQ(0,json_check_key(basic,"ip"));
     EXPECT_EQ(1,json_check_key(basic,"ip123"));
 }
+*/
 
 TEST(arr_add_objTest,Normal){
     Array* basic = json_new_arr();
@@ -142,6 +146,7 @@ TEST(arr_create_jsonTest,Normal){
 	EXPECT_EQ(basic, dns_arr->array_address->value.Json_child);
 }
 
+/*
 TEST(json_search_nodeTest,Normal){
 	Json* basic = json_new_obj();
 	EXPECT_EQ(NULL, json_search_node(basic,"keyint1"));
@@ -150,6 +155,7 @@ TEST(json_search_nodeTest,Normal){
 	EXPECT_NE(NULL, (long int)json_search_node(basic,"keyint1"));
 	EXPECT_NE(NULL, (long int)json_search_node(basic,"keyint2"));
 }
+*/
 
 TEST(json_get_intTest,Normal){
 	Json* basic = json_new_obj();
@@ -197,9 +203,8 @@ TEST(json_get_jsonTest,Normal){
     EXPECT_EQ(basic,json_get_json(root,"basic"));
 }
 
-/*
 TEST(json_printTest,Normal){
-    	Json* root = json_new_obj();
+    Json* root = json_new_obj();
 	Json* basic = json_new_obj();
 	Json* advance = json_new_obj();
 	Json* dns = json_new_obj();
@@ -238,7 +243,8 @@ TEST(json_printTest,Normal){
 	json_add_obj(advance, json_create_str("path", "/etc/sinfors"));
 	json_add_obj(advance, json_create_str("value", "3.14"));
 
-	print_json(root);
+    FILE *pFile = fopen("log","w");
+	print_json(root,pFile);
+    fclose(pFile);
 
 }
-*/

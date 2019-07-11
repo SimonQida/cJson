@@ -8,6 +8,13 @@
 int a[10] = {10,10,10,10,10,10,10,10,10,10};
 int aindex = 0;
 FILE pFile;
+
+void print_jsonNode(JsonNode* node,FILE*);
+
+void print_arr(const Array* arr,FILE*);
+
+void print_arrNode(ArrayNode* arrNode,FILE*);
+
 void printprefix(FILE* pFile){
     if (!pFile)
         return ;

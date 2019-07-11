@@ -51,11 +51,6 @@ bool json_add_obj(Json*, JsonNode*);
 
 //bool json_add_arr(Array*, ValueType);
 
-bool json_check_key(Json*, const char*);
-
-JsonNode* json_search_node(Json* ,const char* );
-
-ArrayNode* arr_search_node(Array* ,int);
 
 JsonNode *json_create_bool(const char* ,const char*);
 
@@ -83,12 +78,6 @@ bool arr_add_obj(Array *,ArrayNode*);
 //day 3 
 //get part
 void print_json(const Json* json,FILE*);
-
-void print_jsonNode(JsonNode* node,FILE*);
-
-void print_arr(const Array* arr,FILE*);
-
-void print_arrNode(ArrayNode* arrNode,FILE*);
 
 int json_get_int(Json* ,const char* );
 
