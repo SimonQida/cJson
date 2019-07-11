@@ -9,6 +9,8 @@ int a[10] = {10,10,10,10,10,10,10,10,10,10};
 int aindex = 0;
 FILE pFile;
 void printprefix(FILE* pFile){
+    if (!pFile)
+        return ;
     int ahead = -1;
     /*
     for(int i =0 ;i<aindex;++i){

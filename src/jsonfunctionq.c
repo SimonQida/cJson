@@ -10,12 +10,19 @@
 //
 Json* json_new_obj(){
     Json * newJ = (Json*)malloc(sizeof(Json));
+    // malloc failed --> newJ is NULL
+    if(!newJ){
+        return NULL;
+    }
     newJ->head = NULL;
     return newJ;
 }
 
 Array *json_new_arr(){
     Array * newA = (Array*)malloc(sizeof(Array));
+    if(!newA){
+        return NULL;
+    }
     newA->len = 0;
     newA->array_address = NULL;
     return newA;
@@ -24,7 +31,14 @@ Array *json_new_arr(){
 //1 -> json_add_obj succeed
 bool json_add_obj(Json* Jsonlink, JsonNode* JNode){
     //check if the key exist
+    if(Jsonlink == NULL){
+        return -1;
+    }
+    if(JNode == NULL){
+        return -2;
+    }
     const char* key = JNode->key;
+    //is_key_exist
     if(json_check_key(Jsonlink,key)){
         //succeed
         // __
@@ -45,7 +59,7 @@ bool json_add_obj(Json* Jsonlink, JsonNode* JNode){
     //link JNode to the Jsonlink
 }
 
-bool json_check_key(Json* Jsonlink,const char* key){
+bool json_check_key(Json* Jsonlink, const char* key){
 //return 1 if key not exist , ok to add
     JsonNode *head = json_search_node(Jsonlink,key);
     if(head == NULL){
@@ -58,7 +72,7 @@ bool json_check_key(Json* Jsonlink,const char* key){
     }
 }
 
-JsonNode* json_search_node(Json* Jsonlink ,const char* key){
+JsonNode* json_search_node(Json* Jsonlink, const char* key){
     JsonNode *head = Jsonlink->head;
     while(head != NULL &&strcmp(head->key,key)){
         head = head->next;
@@ -66,7 +80,7 @@ JsonNode* json_search_node(Json* Jsonlink ,const char* key){
     return head;
 }
 
-ArrayNode* arr_search_node(Array *arraylink ,int index){
+ArrayNode* arr_search_node(Array *arraylink, int index){
     //if index out of arr-len return NULL
     ArrayNode* head = arraylink->array_address;
     if(head->index < index){
@@ -79,7 +93,7 @@ ArrayNode* arr_search_node(Array *arraylink ,int index){
     return head;
 }
 
-bool arr_add_obj(Array *arraylink,ArrayNode*aNode){
+bool arr_add_obj(Array *arraylink, ArrayNode* aNode){
         //succeed
         // __
         //|1_|<-?
@@ -105,12 +119,13 @@ bool arr_add_obj(Array *arraylink,ArrayNode*aNode){
 
 
 //get a value -- don't need to manage space and pointer,if key not exist ,give message
-int json_get_int(Json* Jsonlink,const char* key){
+int json_get_int(Json* Jsonlink, const char* key){
     JsonNode * node = json_search_node(Jsonlink,key);
     if(!node){
         //key not in Json
         //printf("key %s not in current json %d\n",key,node);
         return INT_MAX;
+        //default value
     }
     return node->value.i;
 }
@@ -120,7 +135,9 @@ int json_get_bool(Json* Jsonlink, const char* key){
     if(!node){
         //key not in Json
         //printf("key %s not in current json %d\n",key,node);
-        return -1;
+        //
+        //default value -> false
+        return false;
     }
     return node->value.b;
 
@@ -131,7 +148,7 @@ const char* json_get_str(Json* Jsonlink,const char *key){
     if(!node){
         //key not in Json
         //printf("key %s not in current json %d\n",key,node);
-        return NULL;
+        return (void*)0;
     }
     return node->value.string;
 
