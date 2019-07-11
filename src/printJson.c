@@ -42,7 +42,9 @@ int main(){
 	json_add_obj(advance, json_create_str("path", "/etc/sinfors"));
 	json_add_obj(advance, json_create_str("value", "3.14"));
 
-	print_json(root);
+    FILE * pFile = fopen("fprintyml","w");
+	print_json(root,pFile);
+    fclose(pFile);
 
     return 0;
 }

@@ -8,7 +8,6 @@
 int a[10] = {10,10,10,10,10,10,10,10,10,10};
 int aindex = 0;
 FILE pFile;
-FILE* pFile = fopen("fprintyml","w");
 void printprefix(FILE* pFile){
     int ahead = -1;
     /*
@@ -176,34 +175,34 @@ void print_arrNode(ArrayNode* arrNode,FILE* pFile)
 {
 	if (arrNode == NULL)
 		return;
-	print_arrNode(arrNode->next);
+	print_arrNode(arrNode->next,pFile);
 	switch (arrNode->type)
 	{
 	case 0:
-        printprefix();
+        printprefix(pFile);
 		fprintf(pFile," %d\n", arrNode->value.i);
 		break;
 	case 1:
-        printprefix();
+        printprefix(pFile);
 		fprintf(pFile," %d\n", arrNode->value.b);
 		break;
 	case 2:
-        printprefix();
+        printprefix(pFile);
 		fprintf(pFile," %f\n", arrNode->value.f);
 		break;
 	case 3:
-        printprefix();
+        printprefix(pFile);
 		fprintf(pFile," %lf\n", arrNode->value.d);
 		break;
 	case 4:
-        printprefix();
+        printprefix(pFile);
 		fprintf(pFile," %s\n", arrNode->value.string);
 		break;
 	case 5:
-		print_json(arrNode->value.Json_child);
+		print_json(arrNode->value.Json_child,pFile);
 		break;
 	case 6:
-		print_arr(arrNode->value.array_child);
+		print_arr(arrNode->value.array_child,pFile);
 		break;
 	default:
 		break;
@@ -217,7 +216,7 @@ void print_arr(const Array* arr,FILE* pFile)
 	ArrayNode* arrHead = arr->array_address;
 	if (arrHead != NULL)
 	{
-		print_arrNode(arrHead);
+		print_arrNode(arrHead,pFile);
 	}
     a[aindex] =10;
     aindex -=1;
@@ -227,44 +226,44 @@ void print_jsonNode(JsonNode* node,FILE* pFile)
 {
 	if (node == NULL)
 		return;
-	print_jsonNode(node->next);
+	print_jsonNode(node->next,pFile);
 	switch (node->type)
 	{
 	case 0:
-        printprefix();
+        printprefix(pFile);
 	fprintf(pFile,"%s:", node->key);
 		fprintf(pFile," %d\n", node->value.i);
 		break;
 	case 1:
-        printprefix();
+        printprefix(pFile);
 	fprintf(pFile,"%s:", node->key);
 		fprintf(pFile," %d\n", node->value.b);
 		break;
 	case 2:
-        printprefix();
+        printprefix(pFile);
 	fprintf(pFile,"%s:", node->key);
 		fprintf(pFile," %f\n", node->value.f);
 		break;
 	case 3:
-        printprefix();
+        printprefix(pFile);
 	fprintf(pFile,"%s:", node->key);
 		fprintf(pFile," %lf\n", node->value.d);
 		break;
 	case 4:
-        printprefix();
+        printprefix(pFile);
 	fprintf(pFile,"%s:", node->key);
 		fprintf(pFile," %s\n", node->value.string);
 		break;
 	case 5:
 	fprintf(pFile,"%s:", node->key);
 		fprintf(pFile,"\n");
-		print_json(node->value.Json_child);
+		print_json(node->value.Json_child,pFile);
 		break;
 	case 6:
-        printprefix();
+        printprefix(pFile);
 	fprintf(pFile,"%s:", node->key);
 		fprintf(pFile,"\n");
-		print_arr(node->value.array_child);
+		print_arr(node->value.array_child,pFile);
 		break;
 	default:
 		break;
@@ -279,7 +278,7 @@ void print_json(const Json* json,FILE* pFile)
 
 	JsonNode* head = json->head;
 	if(head != NULL)
-		print_jsonNode(head);
+		print_jsonNode(head,pFile);
 
     a[aindex] = 10;
     aindex -=1;

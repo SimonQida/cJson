@@ -109,7 +109,7 @@ int json_get_int(Json* Jsonlink,const char* key){
     JsonNode * node = json_search_node(Jsonlink,key);
     if(!node){
         //key not in Json
-        printf("key %s not in current json %d\n",key,node);
+        //printf("key %s not in current json %d\n",key,node);
         return INT_MAX;
     }
     return node->value.i;
@@ -119,7 +119,7 @@ int json_get_bool(Json* Jsonlink, const char* key){
     JsonNode * node = json_search_node(Jsonlink,key);
     if(!node){
         //key not in Json
-        printf("key %s not in current json %d\n",key,node);
+        //printf("key %s not in current json %d\n",key,node);
         return -1;
     }
     return node->value.b;
@@ -130,7 +130,7 @@ const char* json_get_str(Json* Jsonlink,const char *key){
     JsonNode * node = json_search_node(Jsonlink,key);
     if(!node){
         //key not in Json
-        printf("key %s not in current json %d\n",key,node);
+        //printf("key %s not in current json %d\n",key,node);
         return NULL;
     }
     return node->value.string;
@@ -142,7 +142,7 @@ Json* json_get_arr_json(Json* Jsonlink,const char* key,int index){
     JsonNode * node = json_search_node(Jsonlink,key);
     if(!node){
         //key not in Json
-        printf("key %s not in current json %d\n",key,node);
+        //printf("key %s not in current json %d\n",key,node);
         return NULL;
     }
     return arr_search_node(node->value.array_child,index)->value.Json_child;
@@ -153,7 +153,7 @@ Json* json_get_json(Json* Jsonlink,const char* key){
     JsonNode * node = json_search_node(Jsonlink,key);
     if(!node){
         //key not in Json
-        printf("key %s not in current json %d\n",key,node);
+        //printf("key %s not in current json %d\n",key,node);
         return NULL;
     }
     return node->value.Json_child;
